@@ -25,12 +25,18 @@ class intcomeximport extends Module
 
     public function install()
     {
-        return parent::install() && $this->installIntcomexCatalogTable();
+        return parent::install() &&
+        $this->installIntcomexCatalogTable() &&
+        $this->installIntcomexCategoriesTable() &&
+        $this->installIntcomexProductsTable();
     }
 
     public function uninstall()
     {
-        return parent::uninstall() && $this->uninstallIntcomexCatalogTable();
+        return parent::uninstall() &&
+        $this->uninstallIntcomexCatalogTable() &&
+        $this->uninstallIntcomexCategoriesTable() &&
+        $this->uninstallIntcomexProductsTable();
     }
 
     private function installIntcomexCatalogTable()
@@ -57,6 +63,53 @@ class intcomeximport extends Module
     private function uninstallIntcomexCatalogTable()
     {
         $sql = 'DROP TABLE IF EXISTS ' . pSQL(_DB_PREFIX_) . 'catalogo_intcomex';
+        return Db::getInstance()->execute($sql);
+    }
+
+    private function installIntcomexCategoriesTable()
+    {
+        $sql = 'CREATE TABLE IF NOT EXISTS `' . pSQL(_DB_PREFIX_) . 'categoria_intcomex`(
+                `catid` VARCHAR(10) NOT NULL,
+                `description` VARCHAR(100) NULL,
+                PRIMARY KEY(`catid`)
+            ) ENGINE=' . pSQL(_MYSQL_ENGINE_) . ' default CHARSET=utf8';
+
+        return Db::getInstance()->execute($sql);
+    }
+
+    private function uninstallIntcomexCategoriesTable()
+    {
+        $sql = 'DROP TABLE IF EXISTS ' . pSQL(_DB_PREFIX_) . 'categoria_intcomex';
+
+        return Db::getInstance()->execute($sql);
+    }
+
+    private function installIntcomexProductsTable()
+    {
+        $sql = 'CREATE TABLE IF NOT EXISTS `' . pSQL(_DB_PREFIX_) . 'productos_intcomex`(
+                `sku` VARCHAR(50) NOT NULL,
+                `mpn` VARCHAR(50) NULL,
+                `description` LONGTEXT NULL,
+                `manufacturer` VARCHAR(10) NULL,
+                `manufacturerdesc` VARCHAR(50) NOT NULL,
+                `catid` VARCHAR(10) NULL,
+                `stock` VARCHAR(10) NULL,
+                `price` VARCHAR(10) NULL,
+                `length` VARCHAR(20) NOT NULL,
+                `width` VARCHAR(20) NULL,
+                `height` VARCHAR(20) NULL,
+                `volume` VARCHAR(20) NULL,
+                `weight` VARCHAR(50) NOT NULL,
+                PRIMARY KEY(`sku`)
+            ) ENGINE=' . pSQL(_MYSQL_ENGINE_) . ' default CHARSET=utf8';
+
+        return Db::getInstance()->execute($sql);
+    }
+
+    private function uninstallIntcomexProductsTable()
+    {
+        $sql = 'DROP TABLE IF EXISTS ' . pSQL(_DB_PREFIX_) . 'productos_intcomex';
+
         return Db::getInstance()->execute($sql);
     }
 }
