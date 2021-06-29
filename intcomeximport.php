@@ -29,7 +29,8 @@ class intcomeximport extends Module
         $this->installIntcomexCatalogTable() &&
         $this->installIntcomexCategoriesTable() &&
         $this->installIntcomexProductsTable() &&
-        $this->installIntcomexMatchingTable();
+        $this->installIntcomexMatchingTable() &&
+        $this->installSignaturesTable();
     }
 
     public function uninstall()
@@ -38,7 +39,8 @@ class intcomeximport extends Module
         $this->uninstallIntcomexCatalogTable() &&
         $this->uninstallIntcomexCategoriesTable() &&
         $this->uninstallIntcomexProductsTable() &&
-        $this->uninstallIntcomexMatchingTable();
+        $this->uninstallIntcomexMatchingTable() &&
+        $this->uninstallSignaturesTable();
     }
 
     private function installIntcomexCatalogTable()
@@ -132,6 +134,25 @@ class intcomeximport extends Module
     private function uninstallIntcomexMatchingTable()
     {
         $sql = 'DROP TABLE IF EXISTS ' . pSQL(_DB_PREFIX_) . 'pareos_intcomex';
+
+        return Db::getInstance()->execute($sql);
+    }
+
+    private function installSignaturesTable()
+    {
+        $sql = 'CREATE TABLE IF NOT EXISTS `' . pSQL(_DB_PREFIX_) . 'signature`(
+            `id` INT(11) NOT NULL AUTO_INCREMENT,
+            `timest` VARCHAR(50) NULL,
+            `signature` VARCHAR(200) NULL,
+            PRIMARY KEY(`id`)
+        ) ENGINE=' . pSQL(_MYSQL_ENGINE_) . ' default CHARSET=utf8';
+
+        return Db::getInstance()->execute($sql);
+    }
+
+    private function uninstallSignaturesTable()
+    {
+        $sql = 'DROP TABLE IF EXISTS ' . pSQL(_DB_PREFIX_) . 'signature';
 
         return Db::getInstance()->execute($sql);
     }
