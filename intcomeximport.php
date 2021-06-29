@@ -30,7 +30,8 @@ class intcomeximport extends Module
         $this->installIntcomexCategoriesTable() &&
         $this->installIntcomexProductsTable() &&
         $this->installIntcomexMatchingTable() &&
-        $this->installSignaturesTable();
+        $this->installSignaturesTable() &&
+        $this->installIntcomexPricesTable();
     }
 
     public function uninstall()
@@ -40,7 +41,8 @@ class intcomeximport extends Module
         $this->uninstallIntcomexCategoriesTable() &&
         $this->uninstallIntcomexProductsTable() &&
         $this->uninstallIntcomexMatchingTable() &&
-        $this->uninstallSignaturesTable();
+        $this->uninstallSignaturesTable() &&
+        $this->uninstallIntcomexPricesTable();
     }
 
     private function installIntcomexCatalogTable()
@@ -153,6 +155,25 @@ class intcomeximport extends Module
     private function uninstallSignaturesTable()
     {
         $sql = 'DROP TABLE IF EXISTS ' . pSQL(_DB_PREFIX_) . 'signature';
+
+        return Db::getInstance()->execute($sql);
+    }
+
+    private function installIntcomexPricesTable()
+    {
+        $sql = 'CREATE TABLE IF NOT EXISTS `' . pSQL(_DB_PREFIX_) . 'price_intcomex`(
+            `id` INT(11) NOT NULL AUTO_INCREMENT,
+            `sku` VARCHAR(30) NOT NULL,
+            `price` VARCHAR(30) NOT NULL,
+            PRIMARY KEY(`id`)
+        ) ENGINE=' . pSQL(_MYSQL_ENGINE_) . ' default CHARSET=utf8';
+
+        return Db::getInstance()->execute($sql);
+    }
+
+    private function uninstallIntcomexPricesTable()
+    {
+        $sql = 'DROP TABLE IF EXISTS ' . pSQL(_DB_PREFIX_) . 'price_intcomex';
 
         return Db::getInstance()->execute($sql);
     }
