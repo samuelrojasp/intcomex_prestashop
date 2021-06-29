@@ -1,0 +1,5 @@
+front_page:
+    path: intcomeximport/
+    methods: [GET]
+    defaults:
+        _controller: 'Intcomeximport\Controllers\Admin\IntcomexImportController::frontPage'

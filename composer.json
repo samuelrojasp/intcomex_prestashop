@@ -1,0 +1,22 @@
+{
+    "name": "samuelrojas/intcomeximport",
+    "description": "Permite importar y actualizar productos por categorias desde la tienda intcomex a un comercio prestashop",
+    "type": "prestashop-module",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "samuelrojasp",
+            "email": "samuel.rojasp@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Intcomeximport\\Controllers\\Admin\\": "Controllers/Admin"
+        }
+    },
+    "config": {
+        "prepend-autoloader": false
+    }
+}
