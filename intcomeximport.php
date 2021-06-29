@@ -28,7 +28,8 @@ class intcomeximport extends Module
         return parent::install() &&
         $this->installIntcomexCatalogTable() &&
         $this->installIntcomexCategoriesTable() &&
-        $this->installIntcomexProductsTable();
+        $this->installIntcomexProductsTable() &&
+        $this->installIntcomexMatchingTable();
     }
 
     public function uninstall()
@@ -36,7 +37,8 @@ class intcomeximport extends Module
         return parent::uninstall() &&
         $this->uninstallIntcomexCatalogTable() &&
         $this->uninstallIntcomexCategoriesTable() &&
-        $this->uninstallIntcomexProductsTable();
+        $this->uninstallIntcomexProductsTable() &&
+        $this->uninstallIntcomexMatchingTable();
     }
 
     private function installIntcomexCatalogTable()
@@ -109,6 +111,27 @@ class intcomeximport extends Module
     private function uninstallIntcomexProductsTable()
     {
         $sql = 'DROP TABLE IF EXISTS ' . pSQL(_DB_PREFIX_) . 'productos_intcomex';
+
+        return Db::getInstance()->execute($sql);
+    }
+
+    private function installIntcomexMatchingTable()
+    {
+        $sql = 'CREATE TABLE IF NOT EXISTS `' . pSQL(_DB_PREFIX_) . 'pareos_intcomex`(
+            `idpareos` INT(11) NOT NULL AUTO_INCREMENT,
+            `catid_intcomex` VARCHAR(10) NULL,
+            `id_categorypareos` INT(11) NULL,
+            `porcentaje` FLOAT NULL,
+            `estado` INT(11) NULL,
+            PRIMARY KEY(`idpareos`)
+        ) ENGINE=' . pSQL(_MYSQL_ENGINE_) . ' default CHARSET=utf8';
+
+        return Db::getInstance()->execute($sql);
+    }
+
+    private function uninstallIntcomexMatchingTable()
+    {
+        $sql = 'DROP TABLE IF EXISTS ' . pSQL(_DB_PREFIX_) . 'pareos_intcomex';
 
         return Db::getInstance()->execute($sql);
     }
