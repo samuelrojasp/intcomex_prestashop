@@ -12,14 +12,43 @@ class intcomeximport extends Module
 {
     public function __construct()
     {
-        $this->name = 'intcomex_import';
-        $this->tab = 'dashboard';
+        $this->name = 'intcomeximport';
         $this->version = '1.0.0';
         $this->author = 'Samuel Rojas P.';
+        $this->need_instance = 0;
 
         parent::__construct();
         $this->displayName = 'Intcomex Import';
         $this->description = 'Con este módulo importamos productos desde la tienda intcomex por categorías y mantenemos sus precios actualizados.';
         $this->ps_versions_compliancy = ['min' => '1.7.1.0', 'max' => _PS_VERSION_];
+    }
+
+    public function install()
+    {
+        return parent::install() &&
+        Db::getInstance()->execute('
+            CREATE TABLE IF NOT EXISTS `' . pSQL(_DB_PREFIX_) . 'catalago_intcomex`(
+                `id` int(6) NOT NULL AUTO_INCREMENT,
+                `catid` VARCHAR(20) NOT NULL,
+                `sku` VARCHAR(30) NOT NULL,
+                `description` LONGTEXT NOT NULL,
+                `length` VARCHAR(10) NOT NULL,
+                `width` VARCHAR(10) NOT NULL,
+                `height` VARCHAR(10) NOT NULL,
+                `volume` VARCHAR(10) NOT NULL,
+                `weight` VARCHAR(100) NOT NULL,
+                `manufacturer` VARCHAR(20) NOT NULL,
+                `manufaccturerdesc` VARCHAR(100) NOT NULL,
+                `stock` VARCHAR(10) NULL,
+                `price` VARCHAR(10) NULL,
+                PRIMARY KEY(`id`)
+            ) ENGINE=' . pSQL(_MYSQL_ENGINE_) . ' default CHARSET=utf8');
+    }
+
+    public function uninstall()
+    {
+        Db::getInstance()->execute('DROP TABLE IF EXISTS ' . pSQL(_DB_PREFIX_) . 'catalogo_intcomex');
+
+        return parent::uninstall();
     }
 }
