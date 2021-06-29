@@ -25,9 +25,17 @@ class intcomeximport extends Module
 
     public function install()
     {
-        return parent::install() &&
-        Db::getInstance()->execute('
-            CREATE TABLE IF NOT EXISTS `' . pSQL(_DB_PREFIX_) . 'catalago_intcomex`(
+        return parent::install() && $this->installIntcomexCatalogTable();
+    }
+
+    public function uninstall()
+    {
+        return parent::uninstall() && $this->uninstallIntcomexCatalogTable();
+    }
+
+    private function installIntcomexCatalogTable()
+    {
+        $sql = 'CREATE TABLE IF NOT EXISTS `' . pSQL(_DB_PREFIX_) . 'catalogo_intcomex`(
                 `id` int(6) NOT NULL AUTO_INCREMENT,
                 `catid` VARCHAR(20) NOT NULL,
                 `sku` VARCHAR(30) NOT NULL,
@@ -42,13 +50,13 @@ class intcomeximport extends Module
                 `stock` VARCHAR(10) NULL,
                 `price` VARCHAR(10) NULL,
                 PRIMARY KEY(`id`)
-            ) ENGINE=' . pSQL(_MYSQL_ENGINE_) . ' default CHARSET=utf8');
+            ) ENGINE=' . pSQL(_MYSQL_ENGINE_) . ' default CHARSET=utf8';
+        return Db::getInstance()->execute($sql);
     }
 
-    public function uninstall()
+    private function uninstallIntcomexCatalogTable()
     {
-        Db::getInstance()->execute('DROP TABLE IF EXISTS ' . pSQL(_DB_PREFIX_) . 'catalogo_intcomex');
-
-        return parent::uninstall();
+        $sql = 'DROP TABLE IF EXISTS ' . pSQL(_DB_PREFIX_) . 'catalogo_intcomex';
+        return Db::getInstance()->execute($sql);
     }
 }
