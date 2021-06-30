@@ -70,7 +70,7 @@ class IntcomexImport extends Module
                 `volume` VARCHAR(10) NOT NULL,
                 `weight` VARCHAR(100) NOT NULL,
                 `manufacturer` VARCHAR(20) NOT NULL,
-                `manufaccturerdesc` VARCHAR(100) NOT NULL,
+                `manufacturerdesc` VARCHAR(100) NOT NULL,
                 `stock` VARCHAR(10) NULL,
                 `price` VARCHAR(10) NULL,
                 PRIMARY KEY(`id`)

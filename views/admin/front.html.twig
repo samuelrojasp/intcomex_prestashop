@@ -2,9 +2,25 @@
 {% trans_default_domain "Admin.Design.Feature" %}
 
 {% block content %}
-    <div class="row">
-        <h2>Demo</h2>
-    </div>
+    {# <div class="row">
+        <div class="col-md-2">
+            <ul class="list-group">
+                <li class="list-group-item active">Productos</li>
+                <li class="list-group-item">Mantenedor</li>
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Productos Intcomex</h3>
+                </div>
+                <div class="card-body">
+                    Content
+                </div>
+            </div>
+        </div>
+    </div> #}
+    <iframe class="col-md-12" style="border: 0; height: 100vh;" src="http://ofpro_intcomex.test/dashboard.html"></iframe>
 {% endblock %}
 
 {% block javascripts %}
