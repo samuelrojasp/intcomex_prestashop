@@ -4,12 +4,23 @@
  * @copyright 2021 Samuel Rojas P.
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
  */
+
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class intcomeximport extends Module
+class IntcomexImport extends Module
 {
+    public $tabs = [
+        [
+            'name' => 'Intcomex Import',
+            'class_name' => 'AdminHome',
+            'visible' => true,
+            'icon' => 'money',
+            'parent_class_name' => 'AdminCatalog',
+        ],
+    ];
+
     public function __construct()
     {
         $this->name = 'intcomeximport';
@@ -21,6 +32,7 @@ class intcomeximport extends Module
         $this->displayName = 'Intcomex Import';
         $this->description = 'Con este módulo importamos productos desde la tienda intcomex por categorías y mantenemos sus precios actualizados.';
         $this->ps_versions_compliancy = ['min' => '1.7.1.0', 'max' => _PS_VERSION_];
+        $this->tab = 'others';
     }
 
     public function install()

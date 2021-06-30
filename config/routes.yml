@@ -2,4 +2,6 @@ front_page:
     path: intcomeximport/
     methods: [GET]
     defaults:
-        _controller: 'Intcomeximport\Controllers\Admin\IntcomexImportController::frontPage'
+        _controller: 'IntcomexImport\Controller\AdminHomeController::frontPage'
+        _legacy_controller: AdminHome
+        _legacy_link: AdminHome

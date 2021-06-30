@@ -1,9 +1,9 @@
 <?php
-namespace Intcomeximport\Controllers\Admin;
+namespace IntcomexImport\Controller;
 
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 
-class IntcomexImportController extends FrameworkBundleAdminController
+class AdminHomeController extends FrameworkBundleAdminController
 {
     public function frontPage()
     {

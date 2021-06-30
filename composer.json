@@ -13,7 +13,7 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Intcomeximport\\Controllers\\Admin\\": "Controllers/Admin"
+            "IntcomexImport\\Controller\\": "controllers/admin/"
         }
     },
     "config": {
